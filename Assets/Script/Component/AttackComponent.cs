@@ -8,7 +8,7 @@ public class AttackComponent : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
 {
-    Hitbox enemyHitbox = collision.GetComponent<Hitbox>();
+    HitboxComponent enemyHitbox = collision.GetComponent<HitboxComponent>();
     if (enemyHitbox != null)
     {
         enemyHitbox.Damage((int)damage);

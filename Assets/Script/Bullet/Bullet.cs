@@ -11,27 +11,17 @@ public class Bullet : MonoBehaviour
     private Rigidbody2D rb;
     public IObjectPool<Bullet> ObjectPool;
 
-    void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        rb.velocity = transform.up * bulletSpeed;
-    }
-
-    public void SetPool(IObjectPool<Bullet> pool)
-    {
-        ObjectPool = pool;
-    }
-
     public void Initialize()
     {
         // Set velocity of bullet to move upwards
         if (rb == null) rb = GetComponent<Rigidbody2D>();
         rb.velocity = transform.up * bulletSpeed;
     }
-
-    private void ReturnToPool()
+    
+    void Start()
     {
-        ObjectPool.Release(this);
+        rb = GetComponent<Rigidbody2D>();
+        rb.velocity = transform.up * bulletSpeed;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -41,5 +31,15 @@ public class Bullet : MonoBehaviour
         {
             ObjectPool.Release(this);
         }
+    }
+
+    public void SetPool(IObjectPool<Bullet> pool)
+    {
+        ObjectPool = pool;
+    }
+
+    private void ReturnToPool()
+    {
+        ObjectPool.Release(this);
     }
 }
